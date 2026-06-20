@@ -1,5 +1,5 @@
 // src/features/dashboard/FootprintChart.tsx
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useCarbonStore } from '../../store/useCarbonStore';
 

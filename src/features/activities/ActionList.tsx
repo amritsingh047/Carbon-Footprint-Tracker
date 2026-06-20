@@ -1,5 +1,5 @@
 // src/features/activities/ActionList.tsx
-import React from 'react';
+
 import { useCarbonStore } from '../../store/useCarbonStore';
 
 const SUGGESTED_ACTIONS = [

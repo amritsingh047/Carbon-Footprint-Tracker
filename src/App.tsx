@@ -1,5 +1,5 @@
 // src/App.tsx
-import React from 'react';
+
 import { useCarbonStore } from './store/useCarbonStore';
 import { OnboardingForm } from './features/onboarding/OnboardingForm';
 import { ActionList } from './features/activities/ActionList';

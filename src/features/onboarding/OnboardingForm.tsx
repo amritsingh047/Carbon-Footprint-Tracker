@@ -1,5 +1,5 @@
 // src/features/onboarding/OnboardingForm.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useCarbonStore } from '../../store/useCarbonStore';
 import { calculateAnnualFootprint } from '../../utils/emissionsEngine';
 import type { UserContext } from '../../utils/emissionsEngine';
