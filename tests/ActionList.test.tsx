@@ -5,12 +5,23 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ActionList } from '../src/features/activities/ActionList';
 import { useCarbonStore } from '../src/store/useCarbonStore';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Reset the Zustand store before each test to prevent state leakage
 const initialState = useCarbonStore.getState();
 
 beforeEach(() => {
+    // Mock localStorage for Zustand persist
+    Object.defineProperty(window, 'localStorage', {
+        value: {
+            getItem: vi.fn(() => null),
+            setItem: vi.fn(),
+            removeItem: vi.fn(),
+            clear: vi.fn(),
+        },
+        writable: true
+    });
+    
     useCarbonStore.setState(initialState, true);
 });
 

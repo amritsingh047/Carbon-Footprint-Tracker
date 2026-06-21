@@ -17,23 +17,26 @@ describe('ActionList', () => {
         vi.clearAllMocks();
         mockLogAction = vi.fn();
 
-        // Spy on useCarbonStore to mock state returns
-        vi.spyOn(carbonStore, 'useCarbonStore').mockImplementation((selector: any) => {
-            return selector({
-                logAction: mockLogAction,
-                currentStreak: 5,
-            });
+        // Mock localStorage for Zustand persist
+        Object.defineProperty(window, 'localStorage', {
+            value: {
+                getItem: vi.fn(() => null),
+                setItem: vi.fn(),
+                removeItem: vi.fn(),
+                clear: vi.fn(),
+            },
+            writable: true
         });
-        
-        // Mock getState directly
-        carbonStore.useCarbonStore.getState = vi.fn().mockReturnValue({ currentStreak: 6 });
+
+        // Use real store but spy on logAction
+        vi.spyOn(carbonStore.useCarbonStore.getState(), 'logAction').mockImplementation(mockLogAction);
     });
 
     it('renders suggested actions correctly', () => {
         render(<ActionList />);
         
         expect(screen.getByRole('heading', { name: /Daily Sustainable Actions/i })).toBeInTheDocument();
-        expect(screen.getByText('5 Day Streak')).toBeInTheDocument();
+        expect(screen.getByText('0 Day Streak')).toBeInTheDocument();
         
         expect(screen.getByText('Replaced beef with plant-based meal')).toBeInTheDocument();
         expect(screen.getByText('Air-dried laundry instead of machine')).toBeInTheDocument();
