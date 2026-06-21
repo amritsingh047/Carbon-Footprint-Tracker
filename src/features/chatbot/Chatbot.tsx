@@ -40,7 +40,24 @@ export const Chatbot: React.FC = () => {
       return `You have saved a total of ${totalSaved.toFixed(2)} kg of CO2e across ${logs.length} logged actions.`;
     }
     
-    return 'I am a simple hackathon bot! I can tell you about your "streak", how to "reduce" your footprint, or how we "calculate" emissions.';
+    // Advanced Client-Side Agent Analysis
+    if (q.includes('analyze') || q.includes('insights') || q.includes('trend')) {
+      if (logs.length === 0) return "I can't analyze your footprint yet! Start logging some actions first.";
+      
+      const totalSaved = logs.reduce((sum, log) => sum + log.co2Saved, 0);
+      const avgSaved = totalSaved / logs.length;
+      
+      const categories = logs.reduce((acc, log) => {
+        acc[log.title] = (acc[log.title] || 0) + log.co2Saved;
+        return acc;
+      }, {} as Record<string, number>);
+      
+      const bestAction = Object.entries(categories).sort((a, b) => b[1] - a[1])[0][0];
+
+      return `Based on my analysis of your ${logs.length} logged actions, you're saving an average of ${avgSaved.toFixed(2)} kg CO₂e per action! Your most impactful habit is "${bestAction}". Keep focusing on that to maximize your impact!`;
+    }
+    
+    return 'I am your Carbon AI Agent! I can tell you about your "streak", how to "reduce" your footprint, or you can ask me to "analyze" your historical data for insights.';
   };
 
   const handleSend = (e: React.FormEvent) => {

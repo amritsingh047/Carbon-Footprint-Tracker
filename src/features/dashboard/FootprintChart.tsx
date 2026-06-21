@@ -105,24 +105,22 @@ export const FootprintChart: React.FC<FootprintChartProps> = React.memo(({ isDar
             )}
             
             {/* Screen Reader Only Table */}
-            <div className="sr-only">
-                <table aria-label="Raw carbon footprint data">
-                    <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">CO₂ Saved (kg)</th>
+            <table className="sr-only" aria-label="Raw carbon footprint data">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">CO₂ Saved (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {chartData.map((data, idx) => (
+                        <tr key={idx}>
+                            <td>{data.date}</td>
+                            <td>{data.saved}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {chartData.map((data, idx) => (
-                            <tr key={idx}>
-                                <td>{data.date}</td>
-                                <td>{data.saved}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    ))}
+                </tbody>
+            </table>
         </section>
     );
 });
