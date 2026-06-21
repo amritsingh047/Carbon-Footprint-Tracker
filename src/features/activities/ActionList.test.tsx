@@ -29,7 +29,7 @@ describe('ActionList', () => {
         });
 
         // Use real store but spy on logAction
-        vi.spyOn(carbonStore.useCarbonStore.getState(), 'logAction').mockImplementation(mockLogAction);
+        vi.spyOn(carbonStore.useCarbonStore.getState(), 'logAction').mockImplementation(mockLogAction as any);
     });
 
     it('renders suggested actions correctly', () => {
