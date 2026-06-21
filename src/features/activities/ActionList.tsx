@@ -35,25 +35,25 @@ export const ActionList: React.FC = () => {
     };
 
     return (
-        <section aria-labelledby="actions-heading" className="p-6 bg-white/40 backdrop-blur-lg rounded-2xl shadow-xl border border-white/40">
+        <section aria-labelledby="actions-heading" className="p-6 bg-white/40 dark:bg-slate-800/60 backdrop-blur-lg rounded-2xl shadow-xl border border-white/40 dark:border-slate-700 transition-colors">
             <header className="flex justify-between items-center mb-6">
-                <h2 id="actions-heading" className="text-2xl font-black text-teal-900 drop-shadow-sm">Daily Sustainable Actions</h2>
-                <div className="flex items-center gap-2 bg-orange-500/20 text-orange-900 px-4 py-1.5 rounded-full font-bold border border-orange-500/30 backdrop-blur-sm shadow-inner" aria-live="polite">
+                <h2 id="actions-heading" className="text-2xl font-black text-teal-900 dark:text-teal-400 drop-shadow-sm transition-colors">Daily Sustainable Actions</h2>
+                <div className="flex items-center gap-2 bg-orange-500/20 dark:bg-orange-500/30 text-orange-900 dark:text-orange-200 px-4 py-1.5 rounded-full font-bold border border-orange-500/30 dark:border-orange-500/50 backdrop-blur-sm shadow-inner transition-colors" aria-live="polite">
                     <span>{currentStreak} Day Streak</span>
                 </div>
             </header>
             
             <div role="list" className="grid gap-4">
                 {SUGGESTED_ACTIONS.map((action) => (
-                    <article key={action.id} role="listitem" className="bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all hover:bg-white/70 hover:shadow-md hover:-translate-y-0.5">
+                    <article key={action.id} role="listitem" className="bg-white/50 dark:bg-slate-700/60 backdrop-blur-sm border border-white/60 dark:border-slate-600 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all hover:bg-white/70 dark:hover:bg-slate-700 hover:shadow-md hover:-translate-y-0.5">
                         <div>
-                            <h3 className="font-bold text-lg text-teal-900">{action.title}</h3>
-                            <p className="text-sm text-teal-700 font-semibold mt-1">Saves {action.co2Saved} kg CO₂e</p>
+                            <h3 className="font-bold text-lg text-teal-900 dark:text-teal-300 transition-colors">{action.title}</h3>
+                            <p className="text-sm text-teal-700 dark:text-teal-400 font-semibold mt-1 transition-colors">Saves {action.co2Saved} kg CO₂e</p>
                         </div>
                         <button
                             onClick={() => handleActionClick(action)}
                             aria-label={`Log action: ${action.title}`}
-                            className="bg-teal-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-teal-500 focus:ring-4 focus:ring-teal-300 focus:outline-none transition-all shadow-md transform hover:scale-105 active:scale-95 whitespace-nowrap w-full sm:w-auto"
+                            className="bg-teal-600 dark:bg-teal-700 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-teal-500 dark:hover:bg-teal-600 focus:ring-4 focus:ring-teal-300 dark:focus:ring-teal-800 focus:outline-none transition-all shadow-md transform hover:scale-105 active:scale-95 whitespace-nowrap w-full sm:w-auto"
                         >
                             Log Action
                         </button>

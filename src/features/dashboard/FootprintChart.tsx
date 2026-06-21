@@ -4,7 +4,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { useCarbonStore } from '../../store/useCarbonStore';
 import { announce } from '../../utils/ariaAnnouncer';
 
-export const FootprintChart: React.FC = React.memo(() => {
+interface FootprintChartProps {
+    isDarkMode?: boolean;
+}
+
+export const FootprintChart: React.FC<FootprintChartProps> = React.memo(({ isDarkMode = false }) => {
     const logs = useCarbonStore((state) => state.logs);
     const [focusedIndex, setFocusedIndex] = useState(-1);
 
@@ -42,14 +46,19 @@ export const FootprintChart: React.FC = React.memo(() => {
 
     if (chartData.length === 0) {
         return (
-            <div className="p-8 text-center bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 shadow-lg">
-                <p role="status" className="text-teal-900 font-bold">Log an action to begin tracking your impact trend.</p>
+            <div className="p-8 text-center bg-white/40 dark:bg-slate-800/60 backdrop-blur-md rounded-2xl border border-white/50 dark:border-slate-700 shadow-lg transition-colors">
+                <p role="status" className="text-teal-900 dark:text-teal-400 font-bold">Log an action to begin tracking your impact trend.</p>
             </div>
         );
     }
 
+    const gridColor = isDarkMode ? '#334155' : '#ccfbf1';
+    const axisColor = isDarkMode ? '#94a3b8' : '#0f766e';
+    const tooltipBg = isDarkMode ? 'rgba(30, 41, 59, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+    const tooltipText = isDarkMode ? '#2dd4bf' : '#0f766e';
+
     return (
-        <section aria-labelledby="chart-heading" className="p-6 bg-white/40 backdrop-blur-xl rounded-2xl shadow-xl mt-6 border border-white/50">
+        <section aria-labelledby="chart-heading" className="p-6 bg-white/40 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-xl mt-6 border border-white/50 dark:border-slate-700 transition-colors">
             <h2 id="chart-heading" className="sr-only">Carbon Savings Trend Chart</h2>
             
             <div 
@@ -58,21 +67,21 @@ export const FootprintChart: React.FC = React.memo(() => {
                 aria-label="A line chart illustrating the total kilograms of CO2 saved per day over the tracking period. Use left and right arrow keys to explore data points."
                 tabIndex={0}
                 onKeyDown={handleKeyDown}
-                className="focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-xl bg-white/60 backdrop-blur-sm p-4 border border-white/60"
+                className="focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm p-4 border border-white/60 dark:border-slate-600 transition-colors"
             >
                 <ResponsiveContainer>
                     <LineChart data={chartData} margin={{ top: 10, right: 20, bottom: 0, left: 0 }}>
-                        <CartesianGrid stroke="#ccfbf1" strokeDasharray="3 3" />
-                        <XAxis dataKey="date" stroke="#0f766e" fontSize={12} tickMargin={10} />
+                        <CartesianGrid stroke={gridColor} strokeDasharray="3 3" />
+                        <XAxis dataKey="date" stroke={axisColor} fontSize={12} tickMargin={10} />
                         <YAxis 
-                            label={{ value: 'CO₂ Saved (kg)', angle: -90, position: 'insideLeft', fill: '#0f766e', style: { textAnchor: 'middle', fontWeight: 'bold' } }} 
-                            stroke="#0f766e" 
+                            label={{ value: 'CO₂ Saved (kg)', angle: -90, position: 'insideLeft', fill: axisColor, style: { textAnchor: 'middle', fontWeight: 'bold' } }} 
+                            stroke={axisColor} 
                             fontSize={12} 
                         />
                         <Tooltip 
                             wrapperStyle={{ outline: 'none' }}
-                            contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                            itemStyle={{ color: '#0f766e', fontWeight: 'bold' }}
+                            contentStyle={{ backgroundColor: tooltipBg, backdropFilter: 'blur(8px)', borderRadius: '12px', border: `1px solid ${gridColor}`, boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                            itemStyle={{ color: tooltipText, fontWeight: 'bold' }}
                         />
                         <Line 
                             type="monotone" 
@@ -88,7 +97,7 @@ export const FootprintChart: React.FC = React.memo(() => {
             
             {/* Visual indicator for keyboard users showing which point is focused */}
             {focusedIndex >= 0 && (
-                <div className="mt-4 text-center text-sm font-bold text-teal-800 bg-white/50 py-2 rounded-lg border border-white/40">
+                <div className="mt-4 text-center text-sm font-bold text-teal-800 dark:text-teal-200 bg-white/50 dark:bg-slate-700/50 py-2 rounded-lg border border-white/40 dark:border-slate-600 transition-colors">
                     Keyboard Focus: {chartData[focusedIndex].date} - {chartData[focusedIndex].saved} kg CO₂e
                 </div>
             )}
