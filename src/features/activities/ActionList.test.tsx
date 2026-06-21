@@ -1,6 +1,7 @@
 /** @vitest-environment jsdom */
 import '@testing-library/jest-dom/vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/dom';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ActionList } from './ActionList';
 import * as carbonStore from '../../store/useCarbonStore';

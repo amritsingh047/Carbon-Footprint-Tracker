@@ -1,6 +1,7 @@
 // src/features/chatbot/Chatbot.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
+import DOMPurify from 'dompurify';
 import { useCarbonStore } from '../../store/useCarbonStore';
 
 export const Chatbot: React.FC = () => {
@@ -42,21 +43,12 @@ export const Chatbot: React.FC = () => {
     return 'I am a simple hackathon bot! I can tell you about your "streak", how to "reduce" your footprint, or how we "calculate" emissions.';
   };
 
-  const escapeHtml = (unsafe: string) => {
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
-  };
-
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
     const rawInput = input.trim();
-    const userMsg = escapeHtml(rawInput); // Sanitize user input against XSS
+    const userMsg = DOMPurify.sanitize(rawInput); // Sanitize user input against XSS
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
     setInput('');
 

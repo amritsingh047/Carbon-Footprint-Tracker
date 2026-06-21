@@ -1,6 +1,14 @@
 // src/store/useCarbonStore.ts
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import type { StateStorage } from 'zustand/middleware';
+import { get, set, del } from 'idb-keyval';
+
+const idbStorage: StateStorage = {
+  getItem: async (name): Promise<string | null> => (await get(name)) || null,
+  setItem: async (name, value): Promise<void> => set(name, value),
+  removeItem: async (name): Promise<void> => del(name),
+};
 
 export interface ActionLog {
     id: string;
@@ -100,7 +108,8 @@ export const useCarbonStore = create<CarbonState>()(
             }
         }),
         {
-            name: 'carbon-tracker-storage', // The exact localStorage key
+            name: 'carbon-tracker-storage',
+            storage: createJSONStorage(() => idbStorage),
         }
     )
 );

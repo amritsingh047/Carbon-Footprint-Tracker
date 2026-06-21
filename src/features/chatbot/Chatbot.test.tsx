@@ -1,9 +1,11 @@
 /** @vitest-environment jsdom */
 import '@testing-library/jest-dom/vitest';
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/dom';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Chatbot } from './Chatbot';
 import * as carbonStore from '../../store/useCarbonStore';
+import { cleanup } from '@testing-library/react';
 
 describe('Chatbot', () => {
     beforeEach(() => {

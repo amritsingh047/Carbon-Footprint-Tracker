@@ -61,6 +61,7 @@ export const FootprintChart: React.FC<FootprintChartProps> = React.memo(({ isDar
         <section aria-labelledby="chart-heading" className="p-6 bg-white/40 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl shadow-xl mt-6 border border-white/50 dark:border-slate-700 transition-colors">
             <h2 id="chart-heading" className="sr-only">Carbon Savings Trend Chart</h2>
             
+            {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex */}
             <div 
                 style={{ width: '100%', height: 300 }}
                 role="application"
@@ -94,6 +95,7 @@ export const FootprintChart: React.FC<FootprintChartProps> = React.memo(({ isDar
                     </LineChart>
                 </ResponsiveContainer>
             </div>
+            {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex */}
             
             {/* Visual indicator for keyboard users showing which point is focused */}
             {focusedIndex >= 0 && (

@@ -6,6 +6,7 @@ import { useCarbonStore } from './useCarbonStore';
 vi.mock('zustand/middleware', () => {
     return {
         persist: (config: unknown) => config,
+        createJSONStorage: () => ({}),
     };
 });
 
