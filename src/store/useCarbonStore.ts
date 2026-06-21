@@ -54,8 +54,13 @@ export const useCarbonStore = create<CarbonState>()(
                     newStreak = 1; // Initial logged action
                 }
                 
+                const newLogs = [...state.logs, { ...action, date: today }];
+                if (newLogs.length > 500) {
+                    newLogs.shift();
+                }
+
                 set({
-                    logs: [...state.logs, { ...action, date: today }],
+                    logs: newLogs,
                     currentStreak: newStreak,
                     lastLogDate: today,
                 });

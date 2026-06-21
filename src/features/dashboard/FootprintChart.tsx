@@ -101,6 +101,26 @@ export const FootprintChart: React.FC<FootprintChartProps> = React.memo(({ isDar
                     Keyboard Focus: {chartData[focusedIndex].date} - {chartData[focusedIndex].saved} kg CO₂e
                 </div>
             )}
+            
+            {/* Screen Reader Only Table */}
+            <div className="sr-only">
+                <table aria-label="Raw carbon footprint data">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">CO₂ Saved (kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {chartData.map((data, idx) => (
+                            <tr key={idx}>
+                                <td>{data.date}</td>
+                                <td>{data.saved}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </section>
     );
 });
