@@ -11,6 +11,9 @@ This application is designed to help individuals monitor, understand, and reduce
 
 The application purposefully omits a dedicated backend to remain strictly under the 10 MB payload threshold, bypass ongoing cloud hosting costs, and minimize the barrier to entry. User inputs traverse through the `emissionsEngine` utility into the Zustand global store, terminating in the Recharts UI components.
 
+## Problem Statement
+Climate change is a critical global crisis, but individuals often feel their actions are disconnected from the larger impact. It is difficult for people to accurately track their carbon footprint without complex tools. This project solves this by providing a highly accessible, gamified, and local-first carbon footprint tracker. By transforming abstract emissions into understandable metrics and rewarding sustainable streaks, we empower individuals to take measurable climate action.
+
 ## Calculation Methodology
 Calculations rely on scientific matrices. Baseline factors include:
 - **Electricity**: 0.727 kg CO2e / kWh

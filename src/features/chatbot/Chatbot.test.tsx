@@ -11,8 +11,8 @@ describe('Chatbot', () => {
         window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
         // Spy on useCarbonStore to mock state returns
-        vi.spyOn(carbonStore, 'useCarbonStore').mockImplementation((selector: any) => {
-            return selector({
+        vi.spyOn(carbonStore, 'useCarbonStore').mockImplementation((selector: unknown) => {
+            return (selector as (state: unknown) => unknown)({
                 logs: [{ co2Saved: 5.0 }, { co2Saved: 2.5 }],
                 currentStreak: 10,
             });

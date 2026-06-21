@@ -89,7 +89,7 @@ export const useCarbonStore = create<CarbonState>()(
                         lastLogDate: parsed.lastLogDate || null
                     });
                     return true;
-                } catch (e) {
+                } catch {
                     return false;
                 }
             }
