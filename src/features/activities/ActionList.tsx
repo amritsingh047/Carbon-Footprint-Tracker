@@ -9,7 +9,9 @@ const SUGGESTED_ACTIONS = [
     { id: 'act_3', title: 'Took the bus instead of driving (20km)', co2Saved: 1.92 },
 ];
 
-export const ActionList: React.FC = () => {
+import React from 'react';
+
+export const ActionList: React.FC = React.memo(() => {
     const logAction = useCarbonStore((state) => state.logAction);
     const currentStreak = useCarbonStore((state) => state.currentStreak);
 
@@ -62,4 +64,4 @@ export const ActionList: React.FC = () => {
             </div>
         </section>
     );
-};
+});
