@@ -8,6 +8,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
+  jsxA11y.flatConfigs.recommended,
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -18,12 +19,6 @@ export default defineConfig([
     ],
     languageOptions: {
       globals: globals.browser,
-    },
-    plugins: {
-      'jsx-a11y': jsxA11y,
-    },
-    rules: {
-      ...jsxA11y.configs.recommended.rules,
     }
   },
 ])
