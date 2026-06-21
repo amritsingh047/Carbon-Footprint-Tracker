@@ -23,11 +23,8 @@ interface CarbonState {
     logs: ActionLog[];
     currentStreak: number;
     lastLogDate: string | null;
-    geminiApiKey: string | null;
     setBaseline: (co2: number) => void;
     logAction: (action: ActionLog) => void;
-    setApiKey: (key: string) => void;
-    clearApiKey: () => void;
     resetData: () => void;
     exportData: () => string;
     importData: (jsonData: string) => boolean;
@@ -41,7 +38,6 @@ export const useCarbonStore = create<CarbonState>()(
             logs: [],
             currentStreak: 0,
             lastLogDate: null,
-            geminiApiKey: null,
             
             setBaseline: (co2) => set({ baselineCo2: co2, isBoarded: true }),
             
@@ -78,10 +74,7 @@ export const useCarbonStore = create<CarbonState>()(
                 });
             },
             
-            setApiKey: (key: string) => set({ geminiApiKey: key }),
-            clearApiKey: () => set({ geminiApiKey: null }),
-            
-            resetData: () => set({ baselineCo2: 0, isBoarded: false, logs: [], currentStreak: 0, lastLogDate: null, geminiApiKey: null }),
+            resetData: () => set({ baselineCo2: 0, isBoarded: false, logs: [], currentStreak: 0, lastLogDate: null }),
 
             exportData: () => {
                 const state = get();
