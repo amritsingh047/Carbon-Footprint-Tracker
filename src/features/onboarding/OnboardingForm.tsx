@@ -108,9 +108,9 @@ export const OnboardingForm: React.FC = () => {
                     onChange={(e) => setFormData({ ...formData, dietType: e.target.value as UserContext['dietType'] })}
                     className="block w-full rounded-xl border border-white/40 dark:border-slate-600 bg-white/60 dark:bg-slate-700/60 px-4 py-3 shadow-inner focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all text-teal-900 dark:text-gray-100"
                 >
-                    <option value="meat_heavy">Meat Heavy</option>
-                    <option value="average">Average</option>
-                    <option value="plant_based">Plant Based</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="meat_heavy">Meat Heavy</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="average">Average</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="plant_based">Plant Based</option>
                 </select>
             </fieldset>
 
@@ -124,8 +124,8 @@ export const OnboardingForm: React.FC = () => {
                     onChange={(e) => setFormData({ ...formData, wasteType: e.target.value as UserContext['wasteType'] })}
                     className="block w-full rounded-xl border border-white/40 dark:border-slate-600 bg-white/60 dark:bg-slate-700/60 px-4 py-3 shadow-inner focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all text-teal-900 dark:text-gray-100"
                 >
-                    <option value="compost_recycle">I compost and recycle</option>
-                    <option value="trash">I throw most things in the trash</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="compost_recycle">I compost and recycle</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="trash">I throw most things in the trash</option>
                 </select>
             </fieldset>
 
@@ -139,9 +139,9 @@ export const OnboardingForm: React.FC = () => {
                     onChange={(e) => setFormData({ ...formData, shoppingHabits: e.target.value as UserContext['shoppingHabits'] })}
                     className="block w-full rounded-xl border border-white/40 dark:border-slate-600 bg-white/60 dark:bg-slate-700/60 px-4 py-3 shadow-inner focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all text-teal-900 dark:text-gray-100"
                 >
-                    <option value="frequent">Frequent (Buy new often)</option>
-                    <option value="average">Average</option>
-                    <option value="rare">Rare (Buy used or rarely)</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="frequent">Frequent (Buy new often)</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="average">Average</option>
+                    <option className="bg-white dark:bg-slate-800 text-teal-900 dark:text-gray-100" value="rare">Rare (Buy used or rarely)</option>
                 </select>
             </fieldset>
 
