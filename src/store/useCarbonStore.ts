@@ -18,6 +18,8 @@ interface CarbonState {
     setBaseline: (co2: number) => void;
     logAction: (action: ActionLog) => void;
     resetData: () => void;
+    exportData: () => string;
+    importData: (jsonData: string) => boolean;
 }
 
 export const useCarbonStore = create<CarbonState>()(
@@ -59,7 +61,38 @@ export const useCarbonStore = create<CarbonState>()(
                 });
             },
             
-            resetData: () => set({ baselineCo2: 0, isBoarded: false, logs: [], currentStreak: 0, lastLogDate: null })
+            resetData: () => set({ baselineCo2: 0, isBoarded: false, logs: [], currentStreak: 0, lastLogDate: null }),
+
+            exportData: () => {
+                const state = get();
+                const payload = {
+                    baselineCo2: state.baselineCo2,
+                    isBoarded: state.isBoarded,
+                    logs: state.logs,
+                    currentStreak: state.currentStreak,
+                    lastLogDate: state.lastLogDate
+                };
+                return JSON.stringify(payload, null, 2);
+            },
+
+            importData: (jsonData) => {
+                try {
+                    const parsed = JSON.parse(jsonData);
+                    if (typeof parsed.baselineCo2 !== 'number' || !Array.isArray(parsed.logs)) {
+                        return false; // Basic validation failed
+                    }
+                    set({
+                        baselineCo2: parsed.baselineCo2,
+                        isBoarded: !!parsed.isBoarded,
+                        logs: parsed.logs,
+                        currentStreak: typeof parsed.currentStreak === 'number' ? parsed.currentStreak : 0,
+                        lastLogDate: parsed.lastLogDate || null
+                    });
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
         }),
         {
             name: 'carbon-tracker-storage', // The exact localStorage key

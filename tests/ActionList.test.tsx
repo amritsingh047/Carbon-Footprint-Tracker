@@ -1,3 +1,4 @@
+/** @vitest-environment jsdom */  
 // tests/ActionList.test.tsx
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
