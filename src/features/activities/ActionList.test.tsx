@@ -17,19 +17,10 @@ describe('ActionList', () => {
         vi.clearAllMocks();
         mockLogAction = vi.fn();
 
-        // Mock localStorage for Zustand persist
-        Object.defineProperty(window, 'localStorage', {
-            value: {
-                getItem: vi.fn(() => null),
-                setItem: vi.fn(),
-                removeItem: vi.fn(),
-                clear: vi.fn(),
-            },
-            writable: true
-        });
-
+        const localStorageMock = { getItem: vi.fn(() => null), setItem: vi.fn(), removeItem: vi.fn(), clear: vi.fn() };
+        vi.stubGlobal('localStorage', localStorageMock);
         // Use real store but spy on logAction
-        vi.spyOn(carbonStore.useCarbonStore.getState(), 'logAction').mockImplementation(mockLogAction as any);
+        vi.spyOn(carbonStore.useCarbonStore.getState(), 'logAction').mockImplementation(mockLogAction as unknown as (action: import('../../store/useCarbonStore').ActionLog) => void);
     });
 
     it('renders suggested actions correctly', () => {

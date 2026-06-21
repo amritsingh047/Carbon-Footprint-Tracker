@@ -18,8 +18,15 @@ export const ActionList: React.FC = React.memo(() => {
     const handleActionClick = (action: typeof SUGGESTED_ACTIONS[0]) => {
         const previousStreak = currentStreak;
         
+        // Secure ID generation to prevent security scanner flags
+        const secureId = typeof crypto !== 'undefined' && crypto.randomUUID 
+            ? crypto.randomUUID() 
+            : Date.now().toString() + (typeof crypto !== 'undefined' 
+                ? crypto.getRandomValues(new Uint32Array(1))[0].toString(16) 
+                : 'id');
+        
         logAction({
-            id: Date.now().toString() + Math.random().toString(36).substring(2, 9),
+            id: secureId,
             title: action.title,
             co2Saved: action.co2Saved,
             date: new Date().toISOString(),
