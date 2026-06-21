@@ -11,6 +11,9 @@ export const OnboardingForm: React.FC = () => {
         weeklyDrivingKm: 0,
         weeklyPublicTransitKm: 0,
         dietType: 'average',
+        flightsPerYear: 0,
+        wasteType: 'trash',
+        shoppingHabits: 'average',
     });
 
     const sanitizeData = (data: UserContext): UserContext => {
@@ -22,7 +25,11 @@ export const OnboardingForm: React.FC = () => {
             weeklyPublicTransitKm: 0,
             dietType: ['meat_heavy', 'average', 'plant_based'].includes(data.dietType) 
                 ? data.dietType 
-                : 'average'
+                : 'average',
+            // Clamp flights between 0 and 1000
+            flightsPerYear: Math.max(0, Math.min(1000, Number(data.flightsPerYear) || 0)),
+            wasteType: ['compost_recycle', 'trash'].includes(data.wasteType) ? data.wasteType : 'trash',
+            shoppingHabits: ['frequent', 'average', 'rare'].includes(data.shoppingHabits) ? data.shoppingHabits : 'average',
         };
     };
 
@@ -73,7 +80,25 @@ export const OnboardingForm: React.FC = () => {
                 />
             </fieldset>
 
-            <fieldset className="mb-8">
+            <fieldset className="mb-5">
+                <legend className="sr-only">Flights</legend>
+                <label htmlFor="flights" className="block text-sm font-bold text-teal-900 dark:text-gray-200 mb-1">
+                    Round-trip Flights (per year)
+                </label>
+                <input
+                    id="flights"
+                    type="number"
+                    min="0"
+                    max="1000"
+                    value={formData.flightsPerYear || ''}
+                    onChange={(e) => setFormData({ ...formData, flightsPerYear: parseFloat(e.target.value) })}
+                    aria-required="true"
+                    className="block w-full rounded-xl border border-white/40 dark:border-slate-600 bg-white/60 dark:bg-slate-700/60 px-4 py-3 shadow-inner focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all placeholder-teal-700/50 dark:placeholder-gray-400 text-teal-900 dark:text-gray-100"
+                    placeholder="e.g. 2"
+                />
+            </fieldset>
+
+            <fieldset className="mb-5">
                 <label htmlFor="diet" className="block text-sm font-bold text-teal-900 dark:text-gray-200 mb-1">
                     Primary Diet
                 </label>
@@ -86,6 +111,37 @@ export const OnboardingForm: React.FC = () => {
                     <option value="meat_heavy">Meat Heavy</option>
                     <option value="average">Average</option>
                     <option value="plant_based">Plant Based</option>
+                </select>
+            </fieldset>
+
+            <fieldset className="mb-5">
+                <label htmlFor="waste" className="block text-sm font-bold text-teal-900 dark:text-gray-200 mb-1">
+                    Waste Management
+                </label>
+                <select
+                    id="waste"
+                    value={formData.wasteType}
+                    onChange={(e) => setFormData({ ...formData, wasteType: e.target.value as UserContext['wasteType'] })}
+                    className="block w-full rounded-xl border border-white/40 dark:border-slate-600 bg-white/60 dark:bg-slate-700/60 px-4 py-3 shadow-inner focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all text-teal-900 dark:text-gray-100"
+                >
+                    <option value="compost_recycle">I compost and recycle</option>
+                    <option value="trash">I throw most things in the trash</option>
+                </select>
+            </fieldset>
+
+            <fieldset className="mb-8">
+                <label htmlFor="shopping" className="block text-sm font-bold text-teal-900 dark:text-gray-200 mb-1">
+                    Shopping Habits
+                </label>
+                <select
+                    id="shopping"
+                    value={formData.shoppingHabits}
+                    onChange={(e) => setFormData({ ...formData, shoppingHabits: e.target.value as UserContext['shoppingHabits'] })}
+                    className="block w-full rounded-xl border border-white/40 dark:border-slate-600 bg-white/60 dark:bg-slate-700/60 px-4 py-3 shadow-inner focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all text-teal-900 dark:text-gray-100"
+                >
+                    <option value="frequent">Frequent (Buy new often)</option>
+                    <option value="average">Average</option>
+                    <option value="rare">Rare (Buy used or rarely)</option>
                 </select>
             </fieldset>
 
