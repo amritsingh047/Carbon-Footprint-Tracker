@@ -12,6 +12,7 @@ function App() {
   const baselineCo2 = useCarbonStore((state) => state.baselineCo2);
   const exportData = useCarbonStore((state) => state.exportData);
   const importData = useCarbonStore((state) => state.importData);
+  const resetData = useCarbonStore((state) => state.resetData);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -28,6 +29,13 @@ function App() {
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleReset = () => {
+    if (confirm("Are you sure you want to reset all your data? This cannot be undone unless you have an exported backup.")) {
+      resetData();
+      announce("All data has been reset.");
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +61,13 @@ function App() {
         
         {/* Export / Import Utilities */}
         <div className="absolute top-0 right-0 flex gap-2">
+          <button 
+            onClick={handleReset}
+            className="flex items-center gap-1 text-sm bg-red-500/80 backdrop-blur-md border border-red-500/30 text-white px-3 py-1.5 rounded-full hover:bg-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 shadow-md"
+            aria-label="Reset all data"
+          >
+            Reset
+          </button>
           <button 
             onClick={handleExport}
             className="flex items-center gap-1 text-sm bg-white/40 backdrop-blur-md border border-white/30 text-teal-900 px-3 py-1.5 rounded-full hover:bg-white/60 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-600"

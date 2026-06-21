@@ -17,7 +17,7 @@ export const ActionList: React.FC = () => {
         const previousStreak = currentStreak;
         
         logAction({
-            id: crypto.randomUUID(),
+            id: Date.now().toString() + Math.random().toString(36).substring(2, 9),
             title: action.title,
             co2Saved: action.co2Saved,
             date: new Date().toISOString(),
