@@ -63,12 +63,11 @@ export const FootprintChart: React.FC<FootprintChartProps> = React.memo(({ isDar
             
             {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex */}
             <div 
-                style={{ width: '100%', height: 300 }}
                 role="application"
                 aria-label="A line chart illustrating the total kilograms of CO2 saved per day over the tracking period. Use left and right arrow keys to explore data points."
                 tabIndex={0}
                 onKeyDown={handleKeyDown}
-                className="focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm p-4 border border-white/60 dark:border-slate-600 transition-colors"
+                className="w-full h-[300px] focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm p-4 border border-white/60 dark:border-slate-600 transition-colors"
             >
                 <ResponsiveContainer>
                     <LineChart data={chartData} margin={{ top: 10, right: 20, bottom: 0, left: 0 }}>
